@@ -1,0 +1,3241 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Годовой отчет АО "Асакабанк" 2024</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: rgb(11, 23, 35); /* темно-синий, основной цвет */
+            --secondary-color: rgb(43, 43, 44); /* синий, вторичный цвет */
+            --accent-color: rgb(244, 246, 248); /* светло-синий, акцентный цвет */
+            --light-accent: rgb(244, 246, 248); /* очень светлый синий */
+            --neutral-color: #f7f7f8; /* светло-серый фон */
+            --dark-text: #1e1f22; /* темный текст */
+            --light-text: #ffffff; /* светлый текст */
+            --chart-colors: #778899, #3482C5, #5BB2EF, #87C6F5, #B0D9F8, #D9EDFC;
+            --gradient-start: #778899;
+            --gradient-end: #5BB2EF;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark-text);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Стили для шапки */
+        .report-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 4rem 0;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .report-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .report-subtitle {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .logo-container {
+            text-align: right;
+            padding-right: 2rem;
+        }
+
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+            filter: brightness(0) invert(1); /* Делаем логотип белым */
+        }
+
+        /* Стили для секций */
+        .report-section {
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-bg {
+            background-color: var(--neutral-color);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+
+        .section-subtitle {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Стили для ключевых показателей */
+        .key-metrics {
+            background-color: var(--light-accent);
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+
+        .metric-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 1rem 0;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-description {
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            margin-top: 1rem;
+        }
+
+        .metric-icon {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Стили для графиков */
+        .chart-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: left;
+            padding-left: 0.5rem;
+        }
+
+        /* Стили для цитат */
+        .quote-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 5rem 0;
+            margin: 3rem 0;
+            color: var(--light-text);
+            position: relative;
+        }
+
+        .quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            position: relative;
+            padding: 0 3rem;
+            z-index: 2;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 6rem;
+            position: absolute;
+            left: -10px;
+            top: -40px;
+            color: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: right;
+            margin-top: 2rem;
+        }
+
+        /* Стили для фотографий */
+        .report-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            filter: saturate(0.9) contrast(1.1); /* Стиль фотографий в духе ВТБ */
+        }
+
+        .report-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Стили для PDF-кнопки */
+        .pdf-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-button:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Стили для аналитических данных */
+        .data-table {
+            width: 100%;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .data-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: white;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background-color: var(--light-accent);
+        }
+
+        /* Стили для инфографики */
+        .info-graphic {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-graphic::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+        }
+
+        .info-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            flex-grow: 1;
+        }
+
+        /* Стилизация списков */
+        .styled-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .styled-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .styled-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.7rem;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        /* Стили для кнопок */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 1rem 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Стили для секций с градиентным фоном */
+        .gradient-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 0;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .gradient-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22100%25%22 height%3D%22100%25%22 viewBox%3D%220 0 800 800%22%3E%3Cg fill%3D%22none%22 stroke%3D%22%23FFFFFF%22 stroke-width%3D%221%22%3E%3Cpath d%3D%22M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63%22%2F%3E%3Cpath d%3D%22M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764%22%2F%3E%3Cpath d%3D%22M520 660L578 842 731 737 840 599 603 493 520 660 295 764 40 599 520 660 578 842 731 737 840 599 603 493 520 660%22%2F%3E%3C%2Fg%3E%3Cg fill%3D%22%23FFFFFF%22%3E%3Ccircle cx%3D%22769%22 cy%3D%22229%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22539%22 cy%3D%22269%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22603%22 cy%3D%22493%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22731%22 cy%3D%22737%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22520%22 cy%3D%22660%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22309%22 cy%3D%22538%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22295%22 cy%3D%22764%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22840%22 cy%3D%22599%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%22578%22 cy%3D%22842%22 r%3D%221%22%2F%3E%3Ccircle cx%3D%2240%22 cy%3D%22599%22 r%3D%221%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .gradient-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .gradient-section .section-title {
+            color: white;
+        }
+
+        .gradient-section .section-title::after {
+            background: white;
+        }
+
+        /* Стили для карточек с процентами */
+        .percentage-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .percentage-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+
+        .percentage-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .percentage-value {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .percentage-label {
+            font-size: 1.2rem;
+            color: var(--dark-text);
+            margin-top: 1rem;
+        }
+
+        /* Стили для блоков сравнения */
+        .comparison-block {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-year {
+            font-size: 1.2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            width: 60px;
+        }
+
+        .comparison-bar {
+            flex-grow: 1;
+            height: 30px;
+            background: var(--light-accent);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        .comparison-fill {
+            height: 100%;
+            border-radius: 15px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+
+        .comparison-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            flex-shrink: 0;
+            width: 100px;
+            text-align: right;
+        }
+
+        /* Адаптивные стили */
+        @media (max-width: 992px) {
+            .report-title {
+                font-size: 2.8rem;
+            }
+
+            .report-subtitle {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.6rem;
+            }
+
+            .metric-value {
+                font-size: 2.8rem;
+            }
+
+            .quote {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .report-title {
+                font-size: 2.2rem;
+            }
+
+            .report-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .logo-container {
+                text-align: center;
+                margin-top: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .metric-card {
+                margin-bottom: 2rem;
+            }
+
+            .percentage-value {
+                font-size: 3rem;
+            }
+        }
+/* Фиксы для смещенных графиков */
+.deposit-stats-fix {
+    margin-left: 20px; /* Сдвигаем контент графика влево */
+}
+
+.financing-stats-fix {
+    margin-left: 20px; /* Сдвигаем контент графика влево */
+}
+
+.financing-stats2-fix {
+    margin-left: 27px; /* Сдвигаем контент графика влево */
+}
+.results-stats-fix {
+    margin-left: -50px; /* Сдвигаем контент графика влево */
+}
+.results-stats-fix {
+    margin-left: 20px; /* Сдвигаем контент графика влево */
+}
+.results-stats-fix2 {
+    margin-left: 25px; /* Сдвигаем контент графика влево */
+}
+    </style>
+</head>
+<body>
+    <!-- Кнопка для скачивания PDF -->
+<button class="pdf-button" onclick="startPdfGeneration()">
+    <i class="fas fa-file-pdf"></i>
+</button>
+
+<!-- Шапка отчета -->
+<header class="report-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 col-md-12">
+                <h1 class="report-title">ГОДОВОЙ ОТЧЕТ 2024</h1>
+                <h2 class="report-subtitle">АО "Асакабанк"</h2>
+            </div>
+            <div class="col-lg-4 col-md-12 logo-container">
+                <img src="https://i.imgur.com/Ow6Fghn.png" alt="Логотип Асакабанк" class="bank-logo">
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Обращение председателя правления -->
+    <section class="report-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Обращение председателя правления</h2>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-12 mb-5 mb-lg-0">
+                    <img src="https://i.imgur.com/TfXlryk.jpeg" alt="Туляганов Кудратилла Асатуллаевич" class="report-image">
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="quote">
+                        <p>Уважаемые акционеры, инвесторы, клиенты и партнеры! Прежде всего, я выражаю искреннюю признательность всем нашим существующим и потенциальным клиентам за вашу неизменную поддержку и доверие.</p>
+                    </div>
+                    <div class="quote-author">
+                        <p>Туляганов Кудратилла Асатуллаевич<br>Председатель Правления АО «Асакабанк»</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <p>АО «Асакабанк», основанный в 1995 году, уже на протяжении многих лет занимает лидирующие позиции на отечественном рынке финансовых услуг. Стремясь к сотрудничеству с широким диапазоном участников экономической жизни страны, банк ставит перед собой главной целью удовлетворение разнообразных нужд хозяйствующих субъектов вне зависимости от формы собственности и видов деятельности, а также всех социальных слоев населения республики.</p>
+
+                    <p>В настоящее время деятельность АО «Асакабанк» направлена на обеспечение долгосрочных устойчивых темпов роста и развития, повышение инвестиционной привлекательности, ликвидности и устойчивости, улучшение основных показателей деятельности банка и доведение их до уровня требований международных стандартов.</p>
+
+                    <p>АО «Асакабанк» постоянно стремится к расширению ассортимента и улучшению качества оказываемых услуг, поддержке субъектов малого бизнеса и частного предпринимательства, увеличению объемов кредитования проектов реального сектора экономики, поддержке высокотехнологичных и социально значимых отраслей экономики страны.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О банке -->
+    <section class="report-section section-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Асакабанк сегодня</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-7 col-md-12">
+                    <p>АО «Асакабанк» был создан в 1995 году на основании Постановления Кабинета Министров Республики Узбекистан и является одним из динамично развивающихся банков на протяжении 30 лет. Асакабанк занимает четвёртое место по величине среди банков Узбекистана (9% активов сектора на конец 2024 года) и имеет устойчивую базу корпоративных клиентов в ряде стратегических отраслей.</p>
+                    <p>В 2025 году АО «Асакабанк» был признан одним из системно значимых банков Республики. В перечень системно значимых банков на 2025 год вошли Узнацбанк, Агробанк, Узпромстройбанк, Народный банк, Ипотека-банк, Капиталбанк и Асакабанк. По состоянию на 1 января 2025 года доля этих банков в активах всей банковской системы Узбекистана составила 65,7%.</p>
+                </div>
+                <div class="col-lg-5 col-md-12">
+                    <div class="info-graphic">
+                        <h4 class="info-title">Ключевые факты</h4>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-calendar-alt" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>30 лет</strong> успешной работы на финансовом рынке Узбекистана
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-trophy" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>4-е место</strong> по величине активов среди банков Узбекистана
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-percentage" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>9%</strong> активов банковского сектора страны
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-star" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>Системно значимый банк</strong> Республики Узбекистан
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Географическое присутствие</h4>
+                        <img src="https://i.imgur.com/dasHzLZ.png" alt="Карта филиалов" class="img-fluid">
+                        <p class="mt-3 text-center">Региональная сеть Асакабанка насчитывает 4 филиала в городе Ташкент и 17 филиалов в регионах Республики Узбекистан</p>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Позиция на рынке по активам</h4>
+                        <canvas id="marketPositionChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ключевые показатели -->
+    <section class="gradient-section" style="background: linear-gradient(135deg, #3f4041 0%, rgb(43,43,44) 50%, rgb(11,23,35) 100%); padding: 80px 0; color: #f4f6f8; position: relative; overflow: hidden;">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Ключевые показатели 2024</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">58,1</div>
+                        <div class="percentage-label">трлн сум<br>Активы<br><span style="font-size: 0.9em; color: #777;">(4-е место, 8% рынка)</span></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">7,1</div>
+                        <div class="percentage-label">трлн сум<br>Объем вкладов населения</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">+81<span style="font-size: 0.7em;">%</span></div>
+                        <div class="percentage-label">Рост объема вкладов населения за год</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">38,7</div>
+                        <div class="percentage-label">трлн сум<br>Кредитный портфель<br><span style="font-size: 0.9em; color: #777;">(4-е место, 7% рынка)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="metric-card" style="background-color: rgba(255,255,255,0.1); color: white;">
+                        <div class="metric-icon">
+                            <i class="fas fa-building-columns" style="color: #F7F7F8;"></i>
+                        </div>
+                        <div class="metric-value" style="color: white;">B2</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.8);">Moody's</div>
+                        <div class="metric-description" style="color: white;">Повышение рейтинга с B3 до B2</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="metric-card" style="background-color: rgba(255,255,255,0.1); color: white;">
+                        <div class="metric-icon">
+                            <i class="fas fa-credit-card" style="color: #F7F7F8;"></i>
+                        </div>
+                        <div class="metric-value" style="color: white;">1,57</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.8);">млн карт</div>
+                        <div class="metric-description" style="color: white;">Банковских карт в обращении</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="metric-card" style="background-color: rgba(255,255,255,0.1); color: white;">
+                        <div class="metric-icon">
+                            <i class="fas fa-award" style="color: #F7F7F8;"></i>
+                        </div>
+                        <div class="metric-value" style="color: white;">ТОП</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.8);">награды</div>
+                        <div class="metric-description" style="color: white;">«Ведущий банк-партнёр в Узбекистане 2024» от АБР</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Стратегия и трансформация -->
+    <section class="report-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Стратегия развития и трансформация банка</h2>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Стратегия развития 2024-2026</h4>
+                        <canvas id="strategyChart" height="300"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="info-graphic">
+                        <h4 class="info-title">Ключевые стратегические приоритеты</h4>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-chart-line" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>Повышение доходности</strong> кредитных продуктов с помощью автоматизации
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-globe" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>Увеличение международной узнаваемости</strong> для привлечения клиентов и партнёров
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-users" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>Переход к клиентоориентированности</strong> и повышение качества обслуживания
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-handshake" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>Стратегия «Банк для банков»</strong> для укрепления позиций в межбанковских услугах
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-shield-alt" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                            </div>
+                            <div class="info-text">
+                                <strong>Укрепление системы управления рисками</strong> и комплаенс-процессов
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="section-subtitle">Трансформация банка</h3>
+                    <p>Трансформация АО «Асакабанка» стартовала в 2020 году, когда был утверждён план по модернизации банка, направленный на оптимизацию операционных процессов, интеграцию передовых технологий и расширение спектра услуг, что позволило банку адаптироваться к современным экономическим и технологическим вызовам.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Проект SAP</h4>
+                        <p>Масштабный проект SAP был запущен в мае 2021 года в партнёрстве с "Suntronix PTE LTD". Он включает четыре системы для улучшения внутренних процессов и качества обслуживания клиентов:</p>
+                        <ul style="list-style-type: none; padding-left: 0;">
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>SAP CRM</strong> - платформа для управления продажами, маркетингом, обслуживанием и аналитикой</span>
+    </li>
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>SAP HR</strong> - автоматизация кадрового учёта и управления талантами</span>
+    </li>
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>IBM BPM</strong> - система для оптимизации операций</span>
+    </li>
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>SAP DWH</strong> - хранилище данных для аналитики и отчётности</span>
+    </li>
+</ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Трансформация бизнес-процессов</h4>
+                        <p>В рамках трансформации бизнес-процессов были успешно реализованы следующие инициативы:</p>
+                        <ul style="list-style-type: none; padding-left: 0;">
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>«Wings»</strong> - система для упрощённого оформления кредитов физическим лицам</span>
+    </li>
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>FaceID</strong> - система для идентификации клиентов во всех отделениях банка</span>
+    </li>
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>Мобильное приложение</strong> с доступом к более чем 50 онлайн-услугам</span>
+    </li>
+    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start;">
+        <div style="width: 11px; height: 7px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); margin-top: 0.6rem; margin-right: 1rem; display: inline-block;"></div>
+        <span><strong>Скоринговая модель</strong> на основе искусственного интеллекта для оценки платёжеспособности заёмщиков</span>
+    </li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Результаты бизнес-сегментов -->
+    <section class="report-section section-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Результаты банка</h2>
+                </div>
+            </div>
+
+            <!-- Корпоративный бизнес -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="section-subtitle">Корпоративный бизнес</h3>
+                    <p>В 2024 году корпоративный бизнес банка продолжил демонстрировать уверенный рост, адаптируясь к новым экономическим вызовам и потребностям клиентов. Мы сосредоточились на расширении продуктовой линейки, внедрении цифровых решений и усилении позиций на рынке корпоративного кредитования и торгового финансирования.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Корпоративный кредитный портфель</h4>
+                        <div class="percentage-value text-center my-4">38,7</div>
+                        <div class="percentage-label text-center">трлн сум</div>
+                        <div class="d-flex justify-content-around mt-4">
+                            <div class="text-center">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">71%</div>
+                                <div>доля в кредитном портфеле</div>
+                            </div>
+                            <div class="text-center">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">5,7</div>
+                                <div>трлн сум выдано в 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Структура корпоративного кредитования</h4>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <canvas id="corporateLendingChart" height="250"></canvas>
+                            </div>
+                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                <div class="mb-3">
+                                    <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">3 745</div>
+                                    <div>млрд сум - краткосрочные кредиты (66%)</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 24px; font-weight: 700; color: var(--secondary-color);">1 960</div>
+                                    <div>млрд сум - долгосрочные кредиты (34%)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Банковские продукты для корпоративных клиентов</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="metric-card" style="height: auto;">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-exchange-alt" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                    </div>
+                                    <div class="metric-value">560</div>
+                                    <div class="metric-label">млрд сум</div>
+                                    <div class="metric-description">Объем факторинга</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="metric-card" style="height: auto;">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-globe" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                    </div>
+                                    <div class="metric-value">3 330</div>
+                                    <div class="metric-label">млрд сум</div>
+                                    <div class="metric-description">Объем торгового финансирования</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Привлечение корпоративных клиентов</h4>
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <canvas id="corporateClientsChart" height="200"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">+61</div>
+                                    <div>новых корпоративных клиентов</div>
+                                </div>
+                                <div class="mb-3">
+                                    <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">858</div>
+                                    <div>общее число корпоративных клиентов</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">+1 268</div>
+                                    <div>млрд сум - рост объема депозитов юрлиц</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Малый бизнес -->
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <h3 class="section-subtitle">Малый бизнес</h3>
+                    <p>Банк предоставил субъектам малого бизнеса кредитные средства на общую сумму <strong>1 165 млрд сумов</strong>, из которых <strong>832 млрд сумов</strong> направлены на финансирование краткосрочных проектов, а <strong>333 млрд сумов</strong> - на долгосрочные проекты. Это способствовало диверсификации кредитного портфеля и снижению уровня рисков.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Финансирование малого бизнеса</h4>
+                        <canvas id="smallBusinessChart" height="250"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Транзакционные продукты</h4>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <canvas id="transactionalProductsChart" height="250"></canvas>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="mt-3">
+                                    <div style="font-size: 28px; font-weight: 700; color: var(--primary-color);">12 947</div>
+                                    <div>реализованных транзакционных продуктов</div>
+                                </div>
+                                <div class="mt-4">
+                                    <div style="font-size: 24px; font-weight: 700; color: var(--secondary-color);">3 651</div>
+                                    <div>новых предприятий привлечено в 2024 году</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Розничный бизнес -->
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <h3 class="section-subtitle">Розничный бизнес</h3>
+                    <p>Блок «Розничный бизнес» отвечает за эффективную работу банка, включая открытие и развитие офисов, привлечение вкладов, предоставление кредитных услуг, международные переводы, выпуск и обслуживание карт, а также другие розничные услуги для физических лиц.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Структура розничного кредитного портфеля 2024</h4>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <canvas id="retailPortfolioChart" height="250"></canvas>
+                            </div>
+                            <div class="col-md-5 d-flex flex-column justify-content-center">
+                                <div class="mb-2">
+                                    <div style="font-size: 28px; font-weight: 700; color: var(--primary-color);">9,3</div>
+                                    <div>трлн сум - общий объем портфеля</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 22px; font-weight: 700; color: var(--secondary-color);">+17%</div>
+                                    <div>рост за 2024 год</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Выданные кредиты в 2024 году (млрд. сум)</h4>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <canvas id="issuedCreditsChart" height="250"></canvas>
+                            </div>
+                            <div class="col-md-5 d-flex flex-column justify-content-center">
+                                <div class="mb-2">
+                                    <div style="font-size: 28px; font-weight: 700; color: var(--primary-color);">5,5</div>
+                                    <div>трлн сум - общий объем выданных кредитов</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 22px; font-weight: 700; color: var(--secondary-color);">110%</div>
+                                    <div>выполнение бизнес-плана</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Динамика розничного кредитного портфеля</h4>
+                        <canvas id="retailDynamicsChart" height="250"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Динамика депозитного портфеля</h4>
+                        <canvas id="depositDynamicsChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Доля депозитного портфеля банка среди коммерческих банков (%)</h4>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <canvas id="depositShareChart" height="250"></canvas>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="info-graphic" style="box-shadow: none; margin: 0; padding: 0;">
+                                    <div class="info-item deposit-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-piggy-bank" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            <strong>7,1 трлн сум</strong> объем вкладов населения на 1 января 2025 года
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item deposit-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-chart-line" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            <strong>+3,2 трлн сум (+81%)</strong> рост объема вкладов населения за 2024 год
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item deposit-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-mobile-alt" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            <strong>64% вкладов</strong> оформлены через мобильное приложение в 2024 году
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item deposit-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-percentage" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            <strong>5,8% доля</strong> в общем депозитном портфеле банков страны
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Внешнеэкономическая деятельность -->
+    <section class="report-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Внешнеэкономическая деятельность и работа с МФИ</h2>
+                    <p>Внешнеэкономическая деятельность занимает важное место в развитии банка. Работа с международными финансовыми институтами (МФИ) направлена на привлечение финансирования, расширение возможностей торговли и укрепление инвестиционного климата.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Привлеченное финансирование в 2024 году</h4>
+                        <canvas id="internationalFinancingChart" height="250"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Достижения и новые партнерства</h4>
+                        <div class="info-graphic" style="box-shadow: none; padding: 0;">
+                            <div class="info-item deposit-stats-fix">
+                                <div class="info-icon">
+                                    <i class="fas fa-handshake" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                </div>
+                                <div class="info-text">
+                                    <strong>Синдицированный кредит</strong> на 100 млн долларов США от Mashreq Bank
+                                </div>
+                            </div>
+
+                            <div class="info-item financing-stats-fix">
+                                <div class="info-icon">
+                                    <i class="fas fa-credit-card" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                </div>
+                                <div class="info-text">
+                                    <strong>Первые корреспондентские счета</strong> в дирхамах ОАЭ и китайских юанях
+                                </div>
+                            </div>
+
+                            <div class="info-item financing-stats2-fix">
+                                <div class="info-icon">
+                                    <i class="fas fa-award" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                </div>
+                                <div class="info-text">
+                                    <strong>«Ведущий банк-партнёр в Узбекистане 2024»</strong> от Азиатского банка развития
+                                </div>
+                            </div>
+
+                            <div class="info-item financing-stats-fix">
+                                <div class="info-icon">
+                                    <i class="fas fa-trophy" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                </div>
+                                <div class="info-text">
+                                    <strong>Номинация</strong> на «The Most Active Issuing Bank, Uzbekistan 2024» от ЕБРР
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Результаты внешнеэкономической деятельности</h4>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div style="padding: 2rem;">
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 2rem;">
+                                            <i class="fas fa-globe" style="font-size: 3rem; color: white;"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 34px; font-weight: 700; color: #3F4041;">459</div>
+                                            <div style="font-size: 18px;">аккредитивов открыто в 2024 году</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 2rem;">
+                                            <i class="fas fa-dollar-sign" style="font-size: 3rem; color: white;"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 34px; font-weight: 700; color: #3F4041;">806</div>
+                                            <div style="font-size: 18px;">млн долларов США общая сумма аккредитивов</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="results-stats-fix">
+                                    <div class="info-graphic" style="box-shadow: none; padding: 0;">
+                                    <h4 class="info-title results-stats-fix2">Приоритетные задачи на 2025 год</h4>
+
+                                    <div class="info-item results-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-handshake" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            Привлечение исламского финансирования на сумму <strong>120 млн долларов США</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item results-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-money-bill-wave" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            Привлечение кредитной линии на <strong>35 млн долларов США</strong> от фонда ОПЕК
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item results-stats-fix">
+                                        <div class="info-icon">
+                                            <i class="fas fa-university" style="font-size: 2rem; background-image: linear-gradient(135deg, #0B1723, #F4F6F8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;"></i>
+                                        </div>
+                                        <div class="info-text">
+                                            Привлечение синдицированного кредита до <strong>200 млн долларов США</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Корпоративное управление -->
+    <section class="report-section section-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Корпоративное управление</h2>
+                    <p>Система корпоративного управления АО «Асакабанк» включает в себя взаимоотношения между акционерами, Советом, Правлением и другими заинтересованными сторонами, регулирующие процесс принятия корпоративных решений и обеспечивающие эффективное управление и контроль за деятельностью Банка.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-5 col-md-12 mb-4">
+                    <div class="chart-container" style="height: 100%;">
+                        <h4 class="chart-title">Структура Совета</h4>
+                        <div style="padding: 1rem;">
+                            <div class="text-center mb-5">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                    <i class="fas fa-users" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div style="font-size: 28px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">7 членов</div>
+                                <div style="font-size: 16px;">включая 3 независимых эксперта</div>
+                            </div>
+
+                            <h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1rem;">Основные функции Совета:</h5>
+                            <ul class="styled-list">
+                                <li>Разработка и контроль реализации стратегии Банка</li>
+                                <li>Контроль за финансовыми результатами и бизнес-планированием</li>
+                                <li>Надзор за корпоративным управлением</li>
+                                <li>Кадровая политика и организационная структура</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Комитеты при Совете</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                        <div style="width: 75px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                            <i class="fas fa-chart-line" style="font-size: 1.5rem; color: white;"></i>
+                                        </div>
+                                        <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Комитет по стратегии и инвестициям</div>
+                                    </div>
+                                    <p style="margin-bottom: 0;">Разработка и контроль реализации стратегии развития Банка, анализ конкурентной среды и инвестиционных проектов</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                            <i class="fas fa-search-dollar" style="font-size: 1.5rem; color: white;"></i>
+                                        </div>
+                                        <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Комитет по аудиту</div>
+                                    </div>
+                                    <p style="margin-bottom: 0;">Контроль финансовой отчётности, взаимодействие с аудиторами, анализ внутренних процессов</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                        <div style="width: 97px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                            <i class="fas fa-user-tie" style="font-size: 1.5rem; color: white;"></i>
+                                        </div>
+                                        <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Комитет по назначениям и вознаграждениям</div>
+                                    </div>
+                                    <p style="margin-bottom: 0;">Кадровая политика, формирование рекомендаций по кандидатам в руководящие должности</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                        <div style="width: 96px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem;">
+                                            <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: white;"></i>
+                                        </div>
+                                        <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Комитет по управлению рисками и комплаенс</div>
+                                    </div>
+                                    <p style="margin-bottom: 0;">Оценка и мониторинг финансовых и операционных рисков, контроль соблюдения нормативных требований</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Достижения в сфере корпоративного управления</h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                        <i class="fas fa-star" style="font-size: 2rem; color: white;"></i>
+                                    </div>
+                                    <div style="font-size: 44px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">777</div>
+                                    <div style="font-size: 18px; font-weight: 600; color: var(--secondary-color);">баллов (65%)</div>
+                                    <div style="font-size: 16px;">независимая оценка качества корпоративного управления</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                        <i class="fas fa-file-alt" style="font-size: 2rem; color: white;"></i>
+                                    </div>
+                                    <div style="font-size: 44px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">5+</div>
+                                    <div style="font-size: 18px; font-weight: 600; color: var(--secondary-color);">документов</div>
+                                    <div style="font-size: 16px;">ключевых стратегических документов разработано и утверждено</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                        <i class="fas fa-user-shield" style="font-size: 2rem; color: white;"></i>
+                                    </div>
+                                    <div style="font-size: 44px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">D&O</div>
+                                    <div style="font-size: 18px; font-weight: 600; color: var(--secondary-color);">insurance</div>
+                                    <div style="font-size: 16px;">внедрена система страхования ответственности членов Совета и Правления</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Риск-менеджмент -->
+    <section class="report-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Риск-менеджмент</h2>
+                    <p>В соответствии с решением Совета Банка и на основе рекомендаций Комитета по управлению рисками и комплаенсу, в 2024 году была пересмотрена и утверждена структура Департамента управления рисками. Департамент выполняет ключевые функции по выявлению, анализу и эффективному управлению кредитными, операционными, рыночными и ликвидными рисками.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container" style="height: 100%;">
+                        <h4 class="chart-title">Кредитные риски</h4>
+                        <div class="p-3">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-car" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">Стресс-тестирование автокредитов</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Оптимизация стратегии автокредитования и минимизация потерь</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-building" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">Кредитный рейтинг корпоративных клиентов</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Разработана методология оценки кредитоспособности</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-brain" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">ML-скоринг</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Внедрена модель для снижения рисков при выдаче микрокредитов</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container" style="height: 100%;">
+                        <h4 class="chart-title">Рыночные и ликвидные риски</h4>
+                        <div class="p-3">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-chart-bar" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">Анализ ликвидности</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Разработан план улучшения показателей в "жёлтой" и "красной" зонах</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-balance-scale" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">Стресс-тестирование</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Проведено в соответствии с требованиями Центрального банка</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-life-ring" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">План восстановления</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Разработан план по устранению последствий кризисных ситуаций</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container" style="height: 100%;">
+                        <h4 class="chart-title">Операционные риски</h4>
+                        <div class="p-3">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-clipboard-list" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">Карты операционных рисков</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Разработаны 40 карт операционных рисков</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-database" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">База данных инцидентов</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Модернизирована на платформе RAS, добавлены новые модули</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary-color);">Обучение сотрудников</div>
+                                    <p style="margin-bottom: 0; font-size: 0.9rem;">Проведены выездные семинар-тренинги для сотрудников</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Внутренний комплаенс -->
+    <section class="report-section section-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Внутренний комплаенс</h2>
+                    <p>Департамент комплаенс-контроля отвечает за соблюдение требований в области регулятивного комплаенса, противодействия отмыванию денег и финансированию терроризма (ПОД/ФТ), работу с санкциями и эмбарго, а также антикоррупционную и антимонопольную деятельность.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Обучение персонала</h4>
+                        <div class="text-center p-4">
+                            <div style="display: inline-block; position: relative; width: 180px; height: 180px;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--primary-color) 0% 98%, #e0e0e0 98% 100%); transform: rotate(-90deg);"></div>
+                                <div style="position: absolute; top: 10px; left: 10px; width: calc(100% - 20px); height: calc(100% - 20px); border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                    <div style="font-size: 40px; font-weight: 700; color: var(--primary-color);">98%</div>
+                                    <div style="font-size: 16px; color: var(--dark-text);">персонала</div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color);">38</div>
+                                <div>тренингов проведено в 2024 году</div>
+                            </div>
+                            <div class="mt-3">
+                                <div style="font-size: 20px; font-weight: 700; color: var(--secondary-color);">+30%</div>
+                                <div>рост осведомленности о рисках ПОД/ФТ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Комплаенс-контроль</h4>
+                        <div class="p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-file-alt" style="font-size: 2.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size: 32px; font-weight: 700; color: var(--primary-color);">112</div>
+                                    <div style="font-size: 16px;">внутренних актов разработано и зарегистрировано</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-sync-alt" style="font-size: 2.5rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: 500;">Из них:</div>
+                                    <div style="font-size: 20px; font-weight: 700; color: var(--primary-color); margin-top: 0.5rem;">52</div>
+                                    <div style="font-size: 16px;">правила обновлены</div>
+                                    <div style="font-size: 20px; font-weight: 700; color: var(--primary-color); margin-top: 0.5rem;">60</div>
+                                    <div style="font-size: 16px;">правила модифицированы</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Антикоррупция</h4>
+                        <div class="text-center p-4">
+                            <div class="d-flex align-items-center justify-content-center mb-4">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center;">
+                                    <i class="fas fa-award" style="font-size: 3.5rem; color: white;"></i>
+                                </div>
+                            </div>
+                            <div style="position: relative; height: 50px; margin-bottom: 1rem;">
+                                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 10px; background-color: #e0e0e0; border-radius: 5px;"></div>
+                                <div style="position: absolute; bottom: 0; left: 0; width: 86%; height: 10px; background: linear-gradient(to right, #0B1723, #F4F6F8); border-radius: 5px;"></div>
+                                <div style="position: absolute; bottom: 15px; left: 86%; transform: translateX(-50%); font-size: 24px; font-weight: 700; color: var(--primary-color);">86</div>
+                                <div style="position: absolute; bottom: 15px; right: 0; font-size: 18px; font-weight: 500; color: var(--dark-text);">100</div>
+                            </div>
+                            <div style="font-size: 16px; margin-bottom: 1rem;">баллов из 100 возможных</div>
+                            <div style="font-size: 20px; font-weight: 700; color: var(--primary-color);">Оценка "ХОРОШО"</div>
+                            <div style="font-size: 16px;">рейтинг по противодействию коррупции</div>
+                            <div style="margin-top: 1.5rem; padding: 1rem; background-color: var(--light-accent);
+                            border-radius: 8px;">
+                                <div style="font-size: 16px; font-weight: 600; color: var(--primary-color);">ISO 37001:2016</div>
+                                <div style="font-size: 14px;">Успешное прохождение 2-го этапа надзорного аудита</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Противодействие отмыванию денег и финансированию терроризма</h4>
+                        <div class="p-4">
+                            <h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1.5rem;">Выявленные основные риски:</h5>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-money-bill-wave" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Высокий уровень наличных операций</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-ban" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Работа с клиентами под санкциями</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-shield-virus" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Кибер-риски</div>
+                            </div>
+
+                            <h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1.5rem;">Ключевые меры по снижению рисков:</h5>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-mobile-alt" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Обновление лимитов в мобильном приложении</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-id-card" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Автоматизация идентификации клиентов (KYC)</div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-search-dollar" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Автоматизация мониторинга транзакций</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Работа с санкциями и эмбарго</h4>
+                        <div class="p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-user-shield" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Независимая экспертиза</div>
+                                    <p style="margin-bottom: 0;">Привлечены внешние эксперты для оценки системы санкционного комплаенса</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-sitemap" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Реорганизация структуры</div>
+                                    <p style="margin-bottom: 0;">Создано Управление по работе с санкциями и эмбарго в I квартале 2024 года</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-certificate" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Международная сертификация</div>
+                                    <p style="margin-bottom: 0;">Сотрудники получили международные сертификаты ICA и ACAMS</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-file-contract" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Оптимизация анкет</div>
+                                    <p style="margin-bottom: 0;">Усовершенствована санкционная анкета для нерезидентов с учётом уровня риска</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Развитие HR -->
+    <section class="report-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Развитие HR</h2>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-7 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">HR-цифровизация</h4>
+                        <div class="p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-file-signature" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Ознакомление с приказами через платформу Анет</div>
+                                    <p style="margin-bottom: 0;">Сотрудники могут ознакомиться с приказами через личный кабинет с электронной подписью</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-folder-open" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Внутренний электронный реестр документов</div>
+                                    <p style="margin-bottom: 0;">Внедрение цифрового перечня документов в личных делах сотрудников</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-clipboard-list" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Автоматизация протоколов</div>
+                                    <p style="margin-bottom: 0;">Цифровой инструмент автоматически генерирует протоколы по больничным и материальной помощи</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Оценка деятельности сотрудников</h4>
+                        <div class="p-4">
+                            <div class="text-center mb-4">
+                                <div style="display: inline-block; position: relative; width: 180px; height: 180px;">
+                                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--primary-color) 0% 50%, var(--accent-color) 50% 100%); transform: rotate(-90deg);"></div>
+                                    <div style="position: absolute; top: 15px; left: 15px; width: calc(100% - 30px); height: calc(100% - 30px); border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                        <div style="font-size: 40px; font-weight: 700; color: var(--primary-color);">1925</div>
+                                        <div style="font-size: 16px; color: var(--dark-text);">сотрудников</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 16px; margin-top: 1rem;">приняли участие в проекте по оценке персонала</div>
+                            </div>
+
+                            <p>В 2024 году HR-департамент продолжил совершенствование системы Performance Management, ориентированной на стратегические цели банка.</p>
+                            <p>Успешно внедрены KPI, разработанные по методологии Balanced Scorecard, что позволило отследить прогресс в каждой области.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Обучение и мотивация</h4>
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                    <i class="fas fa-user-graduate" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div style="font-size: 36px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">506</div>
+                                <div style="font-size: 16px;">сотрудников прошли внешнее обучение</div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                    <i class="fas fa-chalkboard-teacher" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div style="font-size: 36px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">1008</div>
+                                <div style="font-size: 16px;">сотрудников прошли внутренние тренинги</div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                    <i class="fas fa-graduation-cap" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div style="font-size: 36px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">3</div>
+                                <div style="font-size: 16px;">топ-менеджера обучаются по программе MBA</div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                    <i class="fas fa-globe" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div style="font-size: 36px; font-weight: 700; color: var(--primary-color); margin-top: 1rem;">6</div>
+                                <div style="font-size: 16px;">стран, где проходили зарубежные стажировки</div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-lg-12">
+                                <h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1.5rem;">Основные темы обучения в 2024 году:</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                                <i class="fas fa-shopping-cart" style="font-size: 1.5rem; color: white;"></i>
+                                            </div>
+                                            <div>Навыки продаж</div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                                <i class="fas fa-tasks" style="font-size: 1.5rem; color: white;"></i>
+                                            </div>
+                                            <div>Управленческие компетенции</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                                <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: white;"></i>
+                                            </div>
+                                            <div>Информационная безопасность</div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                                <i class="fas fa-balance-scale" style="font-size: 1.5rem; color: white;"></i>
+                                            </div>
+                                            <div>Комплаенс-контроль</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Социальная ответственность -->
+    <section class="report-section section-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title">Социальная ответственность и устойчивое развитие</h2>
+                    <p>Для АО «Асакабанк» важным приоритетом является развитие экологического, социального и корпоративного управления (ESG) в соответствии с передовыми практиками банковской отрасли.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Экологическое и социальное управление</h4>
+                        <div class="p-4">
+                            <h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1.5rem;">Принципы Экологической и социальной политики:</h5>
+                            <div class="d-flex align-items-center mb-3">
+                                <<div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-solar-panel" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Поддержка низкоуглеродных технологий и «зелёных» источников энергии</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-leaf" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Рациональное использование природных ресурсов</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-users" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Улучшение качества жизни местных сообществ</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                    <i class="fas fa-briefcase" style="font-size: 1rem; color: white;"></i>
+                                </div>
+                                <div>Создание новых рабочих мест</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Гендерное равенство</h4>
+                        <div class="p-4">
+                            <p>Банк утвердил Стратегию гендерного равенства в 2024 году. Этот документ отражает цели и задачи Стратегии достижения гендерного равенства Республики Узбекистан до 2030 года.</p>
+
+                            <div class="d-flex align-items-center mt-4">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-balance-scale" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Назначен уполномоченный</div>
+                                    <p style="margin-bottom: 0;">Определено должностное лицо по вопросам обеспечения равных прав для женщин и мужчин</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mt-4">
+                                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1.5rem; flex-shrink: 0;">
+                                    <i class="fas fa-venus-mars" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 1.2rem; color: var(--primary-color);">Фокус на женский бизнес</div>
+                                    <p style="margin-bottom: 0;">Расширение кредитования женского бизнеса и интегрированный гендерный подход</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Энергоэффективность и «озеленение»</h4>
+                        <div class="text-center p-4">
+                            <div style="position: relative; margin-bottom: 2rem;">
+                                <div style="width: 180px; height: 180px; margin: 0 auto; position: relative;">
+                                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--primary-color) 0% 14.6%, #e0e0e0 14.6% 100%); transform: rotate(-90deg);"></div>
+                                    <div style="position: absolute; top: 20px; left: 20px; width: calc(100% - 40px); height: calc(100% - 40px); border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                        <div style="font-size: 40px; font-weight: 700; color: var(--primary-color);">14,6%</div>
+                                        <div style="font-size: 14px; color: var(--dark-text);">доля солнечной энергии</div>
+                                    </div>
+                                </div>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 220px; height: 220px; border-radius: 50%; border: 2px dashed var(--accent-color); opacity: 0.5; z-index: -1;"></div>
+                            </div>
+
+                            <div style="font-size: 24px; font-weight: 600; color: var(--primary-color);">616 340</div>
+                            <div style="font-size: 16px; margin-bottom: 1.5rem;">кВт.ч объём «зелёной» генерации в 2024 году</div>
+
+                            <div style="font-size: 20px; font-weight: 600; color: var(--secondary-color);">305 750,64</div>
+                            <div style="font-size: 16px;">кг CO<sub>2</sub>экв. сокращение выбросов</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Общенациональный Проект «Яшил макон»</h4>
+                        <div class="text-center p-4">
+                            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                <i class="fas fa-tree" style="font-size: 3.5rem; color: white;"></i>
+                            </div>
+
+                            <div style="margin-top: 2rem;">
+                                <div style="font-size: 36px; font-weight: 700; color: var(--primary-color);">1 000</div>
+                                <div style="font-size: 16px; margin-bottom: 1rem;">саженцев декоративных и фруктовых деревьев</div>
+
+                                <div style="font-size: 24px; font-weight: 600; color: var(--secondary-color);">500</div>
+                                <div style="font-size: 16px; margin-bottom: 1rem;">га площадь озеленения</div>
+
+                                <div style="font-size: 20px; font-weight: 600; color: var(--secondary-color);">3,36 тыс.</div>
+                                <div style="font-size: 16px;">дополнительных саженцев тополя</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Вклад в «зелёную» экономику</h4>
+                        <div class="p-4">
+                            <div class="text-center mb-4">
+                                <div style="width: 140px; height: 140px; margin: 0 auto; position: relative;">
+                                    <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                        <div style="font-size: 36px; font-weight: 700; color: var(--primary-color);">803</div>
+                                        <div style="font-size: 14px; color: var(--dark-text);">кредита</div>
+                                    </div>
+                                    <svg viewBox="0 0 36 36" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+                                      <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="#e0e0e0"
+                                        stroke-width="3"
+                                        stroke-dasharray="100, 100"
+                                      />
+                                      <path d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none"
+                                        stroke="url(#gradient)"
+                                        stroke-width="3"
+                                        stroke-dasharray="100, 100"
+                                      />
+                                      <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                          <stop offset="0%" stop-color="var(--primary-color)" />
+                                          <stop offset="100%" stop-color="var(--accent-color)" />
+                                        </linearGradient>
+                                      </defs>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div style="font-size: 20px; font-weight: 600; color: var(--primary-color);">24,549 млрд сумов</div>
+                            <div style="font-size: 16px; margin-bottom: 1rem;">объем «зелёных» кредитов «Яшил макон»</div>
+
+                            <div style="font-size: 18px; font-weight: 600; color: var(--secondary-color);">3,203 МВт</div>
+                            <div style="font-size: 16px; margin-bottom: 1rem;">общая мощность солнечных панелей</div>
+
+                            <div style="font-size: 16px; font-weight: 600; color: var(--primary-color);">ООО «Яшил энергия»</div>
+                            <div style="font-size: 14px;">47,72 МВт солнечных фотоэлектростанций на 1128 объектах</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Цели устойчивого развития-2030</h4>
+                        <div class="row p-4">
+                            <div class="col-md-3 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                            <div style="font-weight: 700; color: white;">8</div>
+                                        </div>
+                                        <div style="font-weight: 600; color: var(--primary-color);">Цель №8</div>
+                                    </div>
+                                    <p style="font-size: 14px; margin-bottom: 0;">Содействие устойчивому и всеохватному экономическому росту на основе повышения эффективной занятости</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                            <div style="font-weight: 700; color: white;">1</div>
+                                        </div>
+                                        <div style="font-weight: 600; color: var(--primary-color);">Цель №1</div>
+                                    </div>
+                                    <p style="font-size: 14px; margin-bottom: 0;">Повсеместное сокращение уровня малообеспеченности населения</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                            <div style="font-weight: 700; color: white;">7</div>
+                                        </div>
+                                        <div style="font-weight: 600; color: var(--primary-color);">Цель №7</div>
+                                    </div>
+                                    <p style="font-size: 14px; margin-bottom: 0;">Обеспечение доступа к недорогим, надёжным, устойчивым и современным источникам энергии для всех</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div style="background-color: var(--light-accent); border-radius: 8px; padding: 1.5rem; height: 100%;">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #0B1723, #F4F6F8); display: flex; justify-content: center; align-items: center; margin-right: 1rem; flex-shrink: 0;">
+                                            <div style="font-weight: 700; color: white;">12</div>
+                                        </div>
+                                        <div style="font-weight: 600; color: var(--primary-color);">Цель №12</div>
+                                    </div>
+                                    <p style="font-size: 14px; margin-bottom: 0;">Обеспечение перехода к рациональным моделям потребления и производства</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <p>В 2025 году будут реализованы программы по поддержке женского и молодёжного бизнеса, созданию новых рабочих мест и повышению уровня жизни населения.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Итоги деятельности -->
+    <section class="report-section gradient-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-title">Итоги деятельности</h2>
+                    <p class="mb-5">В 2024 году АО «Асакабанк» продемонстрировал стабильность и устойчивый рост по ключевым направлениям деятельности, укрепив свои позиции на банковском рынке Узбекистана.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">+17<span style="font-size: 0.7em;">%</span></div>
+                        <div class="percentage-label">Рост розничного кредитного портфеля</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">+81<span style="font-size: 0.7em;">%</span></div>
+                        <div class="percentage-label">Рост объема вкладов населения</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">B2</div>
+                        <div class="percentage-label">Повышение рейтинга Moody's с B3 до B2</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="percentage-card">
+                        <div class="percentage-value">1,57</div>
+                        <div class="percentage-label">млн банковских карт в обращении</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6 offset-lg-3">
+                    <p class="text-center" style="color: white;">Реализация стратегических инициатив позволила повысить операционную эффективность, расширить клиентскую базу и улучшить качество обслуживания. В 2025 году банк продолжит реализацию стратегических инициатив, направленных на дальнейшее повышение эффективности, развитие инновационных продуктов и укрепление финансовой устойчивости.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал отчета -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>АО "Асакабанк"</h5>
+                    <p>Годовой отчет 2024</p>
+                    <p><small>© 2025 АО "Асакабанк". Все права защищены.</small></p>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>Контакты</h5>
+                    <p>Республика Узбекистан, г. Ташкент</p>
+                    <p>Телефон: +998 78 140-00-11</p>
+                    <p>Email: info@asakabank.uz</p>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <h5>Социальные сети</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript для графиков и функциональности -->
+    <script>
+        // Простая и надежная функция экспорта PDF в альбомной ориентации
+function generatePDF() {
+    try {
+        // 1. Проверим загружена ли библиотека html2pdf
+        if (typeof html2pdf === 'undefined') {
+            // Если библиотека не загружена, добавим ее динамически
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            document.head.appendChild(script);
+
+            script.onload = function() {
+                // После загрузки библиотеки запустим функцию снова
+                setTimeout(generatePDF, 100);
+            };
+
+            alert('Загружаем необходимые компоненты. Пожалуйста, подождите несколько секунд и нажмите кнопку PDF снова.');
+            return;
+        }
+
+        // 2. Используем BODY как контейнер (без необходимости в report-container)
+        const contentToPrint = document.body;
+
+        // Опции для html2pdf
+        const options = {
+            margin: 10,
+            filename: 'Годовой_отчет_Асакабанк_2024.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+
+        // Уведомление
+        alert('Начинается создание PDF. Пожалуйста, подождите...');
+
+        // Создаем PDF
+        html2pdf()
+            .from(contentToPrint)
+            .set(options)
+            .save()
+            .then(() => {
+                console.log('PDF создан успешно');
+            })
+            .catch(err => {
+                console.error('Ошибка при создании PDF:', err);
+                alert('Произошла ошибка при создании PDF. Пожалуйста, попробуйте еще раз.');
+            });
+
+    } catch (error) {
+        console.error('Общая ошибка:', error);
+        alert('Что-то пошло не так: ' + error.message);
+    }
+}
+
+// Это единственная функция, которую нужно вызывать при нажатии на кнопку
+
+// Функция для загрузки библиотеки html2pdf, если она не загружена
+function loadHtml2PdfIfNeeded(callback) {
+    if (typeof html2pdf !== 'undefined') {
+        // Библиотека уже загружена
+        callback();
+        return;
+    }
+
+    console.log('Загрузка библиотеки html2pdf...');
+
+    // Создаем элемент script
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    script.integrity = 'sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==';
+    script.crossOrigin = 'anonymous';
+    script.referrerPolicy = 'no-referrer';
+
+    // Событие при загрузке скрипта
+    script.onload = function() {
+        console.log('Библиотека html2pdf успешно загружена');
+        callback();
+    };
+
+    // Событие при ошибке загрузки
+    script.onerror = function() {
+        console.error('Ошибка загрузки библиотеки html2pdf');
+        alert('Не удалось загрузить библиотеку html2pdf. Пожалуйста, проверьте подключение к интернету.');
+    };
+
+    // Добавляем элемент script в head
+    document.head.appendChild(script);
+}
+
+// Функция для запуска преобразования PDF с предварительной проверкой библиотеки
+function startPdfGeneration() {
+    loadHtml2PdfIfNeeded(generatePDF);
+}
+
+// Инициализация графиков после загрузки страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Настройка общего стиля для графиков
+    Chart.defaults.color = '#333333';
+    Chart.defaults.font.family = "'Roboto', sans-serif";
+    Chart.defaults.font.size = 14;
+
+            // Общие параметры для градиентов
+            function getGradient(ctx, chartArea, colorStart, colorEnd) {
+                const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                gradient.addColorStop(0, colorStart);
+                gradient.addColorStop(1, colorEnd);
+                return gradient;
+            }
+
+            // График: Позиция на рынке по активам
+const marketPositionCtx = document.getElementById('marketPositionChart').getContext('2d');
+const marketPositionChart = new Chart(marketPositionCtx, {
+    type: 'bar',
+    data: {
+        labels: ['2020', '2021', '2022', '2023', '2024'],
+        datasets: [{
+            label: 'Доля активов банка на рынке (%)',
+            data: [7.2, 7.5, 8.0, 8.7, 9.0],
+            backgroundColor: function(context) {
+    const chart = context.chart;
+    const {ctx, chartArea} = chart;
+    if (!chartArea) {
+        return;
+    }
+    return getGradient(ctx, chartArea, 'rgb(119,136,153)', 'rgb(218,218,218)');
+},
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false,
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `Доля на рынке: ${context.raw}%`;
+                    }
+                }
+            },
+            // ДОБАВЬТЕ ЭТОТ БЛОК КОДА
+            datalabels: {
+                display: true,
+                color: '#FFFFFF',
+                backgroundColor: 'rgb(112,128,144)',
+                borderRadius: 4,
+                padding: 4,
+                font: {
+                    weight: 'bold',
+                    size: 12
+                },
+                formatter: function(value) {
+                    return value + '%';
+                },
+                anchor: 'end',
+                align: 'top',
+                offset: 0
+            }
+            // КОНЕЦ ДОБАВЛЕННОГО БЛОКА
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10,
+                ticks: {
+                    callback: function(value) {
+                        return value + '%';
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    // ДОБАВЬТЕ ЭТУ СТРОКУ В КОНЦЕ КОНФИГУРАЦИИ
+    plugins: [ChartDataLabels]
+});
+
+            // График: Стратегия развития
+            const strategyCtx = document.getElementById('strategyChart').getContext('2d');
+            const strategyChart = new Chart(strategyCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Доходность', 'Международное признание', 'Клиентский сервис', 'Инновации', 'Устойчивый рост', 'Управление рисками'],
+                    datasets: [{
+                        label: '2023',
+                        data: [65, 59, 70, 60, 75, 60],
+                        fill: true,
+                        backgroundColor: 'rgba(91, 178, 239, 0.2)',
+                        borderColor: '#708090',
+                        pointBackgroundColor: '#5BB2EF',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#5BB2EF'
+                    }, {
+                        label: '2024',
+                        data: [80, 75, 85, 80, 85, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(13, 54, 116, 0.2)',
+                        borderColor: '#0D3674',
+                        pointBackgroundColor: '#0D3674',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#0D3674'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: true,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // График: Корпоративное кредитование
+const corporateLendingCtx = document.getElementById('corporateLendingChart').getContext('2d');
+const corporateLendingChart = new Chart(corporateLendingCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Краткосрочные кредиты', 'Долгосрочные кредиты'],
+        datasets: [{
+            data: [66, 34],
+            backgroundColor: ['#778899', '#c0c0c0'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 30,
+                    usePointStyle: true,
+                    pointStyle: 'rectRounded'
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.raw}%`;
+                    }
+                }
+            },
+            // Добавляем конфигурацию datalabels
+            datalabels: {
+                color: '#FFFFFF',
+                font: {
+                    weight: 'bold',
+                    size: 20
+                },
+                formatter: function(value) {
+                    return value + '%';
+                },
+                anchor: 'center',
+                align: 'center'
+            }
+        },
+        cutout: '60%'
+    },
+    // Добавляем плагин datalabels
+    plugins: [ChartDataLabels]
+});
+
+            // График: Корпоративные клиенты
+const corporateClientsCtx = document.getElementById('corporateClientsChart').getContext('2d');
+const corporateClientsChart = new Chart(corporateClientsCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Текущие клиенты', 'Новые клиенты'],
+        datasets: [{
+            data: [797, 61],
+            backgroundColor: ['#708090', '#dcdcdc'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    usePointStyle: true,
+                    pointStyle: 'rectRounded'
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                }
+            },
+            // Добавляем конфигурацию datalabels для отображения количества
+            datalabels: {
+                color: function(context) {
+                    // Для светлого сегмента используем темный текст
+                    return context.dataIndex === 1 ? '#333333' : '#FFFFFF';
+                },
+                font: {
+                    weight: 'bold',
+                    size: 15
+                },
+                formatter: function(value, context) {
+                    // Отображаем только количество
+                    return value;
+                },
+                anchor: 'center',
+                align: 'center'
+            }
+        }
+    },
+    // Добавляем плагин datalabels
+    plugins: [ChartDataLabels]
+});
+
+            // График: Малый бизнес
+const smallBusinessCtx = document.getElementById('smallBusinessChart').getContext('2d');
+const smallBusinessChart = new Chart(smallBusinessCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Краткосрочные проекты', 'Долгосрочные проекты'],
+        datasets: [{
+            data: [832, 333],
+            backgroundColor: ['#708090', '#dcdcdc'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    usePointStyle: true,
+                    pointStyle: 'rectRounded'
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.raw} млрд сум`;
+                    }
+                }
+            },
+            // Добавляем конфигурацию datalabels для отображения значений в сумах
+            datalabels: {
+                color: function(context) {
+                    // Для светлого сегмента используем темный текст
+                    return context.dataIndex === 1 ? '#333333' : '#FFFFFF';
+                },
+                font: {
+                    weight: 'bold',
+                    size: 20
+                },
+                formatter: function(value) {
+                    // Отображаем значение с единицами измерения
+                    return value + ' млрд';
+                },
+                anchor: 'center',
+                align: 'center'
+            }
+        }
+    },
+    // Добавляем плагин datalabels
+    plugins: [ChartDataLabels]
+});
+
+           // Транзакционные продукты
+const transactionalProductsCtx = document.getElementById('transactionalProductsChart').getContext('2d');
+const transactionalProductsChart = new Chart(transactionalProductsCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Тарифные пакеты', 'Корпоративные карты', 'Эквайринг', 'Зарплатные проекты'],
+        datasets: [{
+            data: [2517, 3381, 3688, 3361],
+            backgroundColor: ['#708090', '#dcdcdc', '#696969', '#0b1723'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.raw}`;
+                    }
+                }
+            },
+            // Обновляем конфигурацию datalabels для отображения названий и значений
+            datalabels: {
+                color: function(context) {
+                    return context.dataIndex === 1 ? '#333333' : '#FFFFFF';
+                },
+                backgroundColor: function(context) {
+                    return context.dataIndex === 1 ?
+                        'rgba(255, 255, 255, 0.7)' :
+                        'rgba(0, 0, 0, 0.7)';
+                },
+                borderRadius: 4,
+                padding: 6,
+                font: {
+                    weight: 'bold',
+                    size: 11 // Уменьшаем размер для размещения и названия, и значения
+                },
+                textAlign: 'center',
+                // Форматтер, который возвращает и название, и значение
+                formatter: function(value, context) {
+                    const label = context.chart.data.labels[context.dataIndex];
+                    const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+                    // Разбиваем длинные названия на две строки и добавляем значение
+                    if (label === 'Корпоративные карты') {
+                        return ['Корпоративные', 'карты', formattedValue];
+                    } else if (label === 'Тарифные пакеты') {
+                        return ['Тарифные', 'пакеты', formattedValue];
+                    } else if (label === 'Зарплатные проекты') {
+                        return ['Зарплатные', 'проекты', formattedValue];
+                    } else {
+                        return [label, formattedValue];
+                    }
+                },
+                display: true,
+                align: 'center',
+                anchor: 'center',
+                offset: 0,
+                // Добавляем немного больше пространства между строками
+                lineHeight: 1.2
+            }
+        },
+        cutout: '60%'
+    },
+    plugins: [ChartDataLabels]
+});
+
+            // График: Структура розничного кредитного портфеля
+const retailPortfolioCtx = document.getElementById('retailPortfolioChart').getContext('2d');
+
+// Создаем модифицированные метки с переносом строки
+const modifiedLabels = ['Авто\nкредиты', 'Ипотечные\nкредиты', 'Микро\nзаймы', 'Другие\nкредиты'];
+
+const retailPortfolioChart = new Chart(retailPortfolioCtx, {
+    type: 'doughnut',
+    data: {
+        // Используем оригинальные метки для легенды и подсказок
+        labels: ['Автокредиты', 'Ипотечные кредиты', 'Микрозаймы', 'Другие кредиты'],
+        datasets: [{
+            data: [53, 33, 10, 4],
+            backgroundColor: ['#708090', '#dcdcdc', '#696969', '#0b1723'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.raw}%`;
+                    }
+                }
+            },
+            datalabels: {
+                color: function(context) {
+                    const index = context.dataIndex;
+                    const colors = ['#FFFFFF', '#000000', '#FFFFFF', '#FFFFFF'];
+                    return colors[index];
+                },
+                backgroundColor: function(context) {
+                    const index = context.dataIndex;
+                    const backgrounds = [
+                        'rgba(0, 0, 0, 0.3)',
+                        'rgba(255, 255, 255, 0.3)',
+                        'rgba(0, 0, 0, 0.3)',
+                        'rgba(0, 0, 0, 0.3)'
+                    ];
+                    return backgrounds[index];
+                },
+                borderRadius: 4,
+                padding: 5,
+                font: {
+                    weight: 'bold',
+                    size: 12 // Увеличиваем чуть-чуть размер для лучшей читаемости
+                },
+                formatter: function(value, context) {
+                    // Для маленьких сегментов показываем только процент
+                    if (value < 10) {
+                        return value + '%';
+                    }
+
+                    // Для остальных показываем модифицированное название и процент
+                    return [modifiedLabels[context.dataIndex], value + '%'];
+                },
+                textAlign: 'center',
+                anchor: function(context) {
+                    return context.raw < 10 ? 'end' : 'center';
+                },
+                align: function(context) {
+                    return context.raw < 10 ? 'end' : 'center';
+                },
+                offset: function(context) {
+                    return context.raw < 10 ? 10 : 0;
+                },
+                // Добавляем немного больше пространства между строками
+                lineHeight: 1.2
+            }
+        },
+        cutout: '60%'
+    },
+    plugins: [ChartDataLabels]
+});
+
+           // График: Выданные кредиты (с отображением значений)
+const issuedCreditsCtx = document.getElementById('issuedCreditsChart').getContext('2d');
+const issuedCreditsChart = new Chart(issuedCreditsCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Автокредиты', 'Ипотека', 'Микрозаймы', 'Другие'],
+        datasets: [{
+            label: 'Млрд сумов',
+            data: [4163, 182, 1114, 63],
+            backgroundColor: ['#708090', '#dcdcdc', '#696969', '#0b1723'],
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false,
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.raw} млрд сум`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    drawBorder: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                // Поворачиваем метки на 90 градусов
+                ticks: {
+                    minRotation: 90,
+                    maxRotation: 90
+                }
+            }
+        }
+    },
+    // Добавляем плагин для отображения значений
+    plugins: [{
+        id: 'barLabels',
+        afterDatasetsDraw: function(chart) {
+            var ctx = chart.ctx;
+
+            chart.data.datasets.forEach(function(dataset, datasetIndex) {
+                var meta = chart.getDatasetMeta(datasetIndex);
+                if (!meta.hidden) {
+                    meta.data.forEach(function(element, index) {
+                        // Устанавливаем стиль текста
+                        var fontSize = 12;
+                        ctx.font = fontSize + 'px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        var dataString = dataset.data[index].toString();
+                        // Добавляем разделители тысяч
+                        dataString = dataString.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+                        // Позиция для текста
+                        var position = element.tooltipPosition();
+
+                        // Определяем цвет фона исходя из высоты столбца
+                        // Для высоких столбцов (Автокредиты и Микрозаймы) - прозрачный белый фон
+                        // Для низких столбцов (Ипотека и Другие) - белый фон с большей непрозрачностью
+                        var backgroundColor = 'rgba(255, 255, 255, 0.7)';
+                        if (dataset.data[index] < 200) {
+                            backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                        }
+
+                        // Размеры фона
+                        var textWidth = ctx.measureText(dataString).width;
+                        var textHeight = fontSize;
+                        var padding = 4;
+
+                        // Рисуем фон
+                        ctx.fillStyle = backgroundColor;
+                        ctx.beginPath();
+                        ctx.roundRect(
+                            position.x - textWidth/2 - padding,
+                            position.y - textHeight - padding,
+                            textWidth + padding*2,
+                            textHeight + padding*2,
+                            4 // радиус скругления углов
+                        );
+                        ctx.fill();
+
+                        // Сбрасываем цвет обратно на цвет текста
+                        ctx.fillStyle = '#000000';
+
+                        // Рисуем текст
+                        ctx.fillText(dataString, position.x, position.y - 5);
+                    });
+                }
+            });
+        }
+    }]
+});
+
+           // График: Динамика розничного кредитного портфеля
+const retailDynamicsCtx = document.getElementById('retailDynamicsChart').getContext('2d');
+
+// Функция для форматирования чисел с разделителями тысяч
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+// Создаем данные
+const retailData = [4562, 4390, 5467, 7959, 9307];
+const selectedPoint = -1; // Не выделяем никакую точку специальной меткой
+
+const retailDynamicsChart = new Chart(retailDynamicsCtx, {
+    type: 'line',
+    data: {
+        labels: ['2020', '2021', '2022', '2023', '2024'],
+        datasets: [{
+            label: 'Объем портфеля (млрд сум)',
+            data: retailData,
+            fill: {
+                target: 'origin',
+                above: 'rgba(13, 54, 116, 0.1)' // Светло-синяя заливка
+            },
+            borderColor: '#0D3674',
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: '#0D3674',
+            pointRadius: 5,
+            pointHoverRadius: 7
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${formatNumber(context.raw)} млрд сум`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: false,
+                grid: {
+                    drawBorder: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    plugins: [{
+        id: 'customLabels',
+        afterDraw: function(chart) {
+            var ctx = chart.ctx;
+
+            chart.data.datasets.forEach(function(dataset, datasetIndex) {
+                var meta = chart.getDatasetMeta(datasetIndex);
+                if (!meta.hidden) {
+                    meta.data.forEach(function(element, index) {
+                        var dataPoint = dataset.data[index];
+                        var position = element.getCenterPoint();
+
+                        if (index === selectedPoint) {
+                            // Для выбранной точки показываем метку с фоном
+                            ctx.fillStyle = '#0D3674';
+                            roundRect(ctx, position.x - 70, position.y - 45, 140, 50, 5, true);
+
+                            // Рисуем год
+                            ctx.fillStyle = '#FFFFFF';
+                            ctx.font = 'bold 14px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('2023', position.x, position.y - 25);
+
+                            // Рисуем значение с "млрд сум" и разделителями тысяч
+                            ctx.font = 'bold 14px Arial';
+                            ctx.fillText(formatNumber(dataPoint) + ' млрд сум', position.x, position.y - 5);
+                        } else {
+                            // Для всех точек показываем значение с "млрд" и разделителями тысяч
+                            ctx.fillStyle = '#0D3674';
+                            ctx.font = 'bold 12px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+
+                            // Для 2024 года (индекс 4) смещаем метку левее
+                            if (index === 4) {
+                                ctx.textAlign = 'right';
+                                ctx.fillText(formatNumber(dataPoint) + ' млрд', position.x - 5, position.y - 10);
+                            } else {
+                                ctx.fillText(formatNumber(dataPoint) + ' млрд', position.x, position.y - 10);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }]
+});
+
+// Вспомогательная функция для рисования прямоугольника с закругленными углами
+function roundRect(ctx, x, y, width, height, radius, fill) {
+    if (typeof radius === 'undefined') {
+        radius = 5;
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    if (fill) {
+        ctx.fill();
+    } else {
+        ctx.stroke();
+    }
+}
+
+            // График: Динамика депозитного портфеля
+const depositDynamicsCtx = document.getElementById('depositDynamicsChart').getContext('2d');
+
+// Создаем данные
+const depositData = [1512, 2256, 2718, 3918, 7100];
+
+// Функция для форматирования чисел с разделителями тысяч
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+// Создаем график
+const depositDynamicsChart = new Chart(depositDynamicsCtx, {
+    type: 'line',
+    data: {
+        labels: ['2020', '2021', '2022', '2023', '2024'],
+        datasets: [{
+            label: 'Объем депозитов (млрд сум)',
+            data: depositData,
+            fill: true,
+            backgroundColor: 'rgba(91, 178, 239, 0.2)',
+            borderColor: '#0D3674',
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: '#0D3674',
+            pointRadius: 5,
+            pointHoverRadius: 7
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${formatNumber(context.raw)} млрд сум`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: false,
+                grid: {
+                    drawBorder: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    plugins: [{
+        id: 'valueLabels',
+        afterDraw: function(chart) {
+            const ctx = chart.ctx;
+
+            chart.data.datasets.forEach(function(dataset, datasetIndex) {
+                const meta = chart.getDatasetMeta(datasetIndex);
+                if (!meta.hidden) {
+                    meta.data.forEach(function(element, index) {
+                        const value = dataset.data[index];
+                        const position = element.getCenterPoint();
+
+                        // Задаем стиль текста
+                        ctx.fillStyle = '#0D3674';
+                        ctx.font = 'bold 12px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        // Форматируем значение
+                        const formattedValue = formatNumber(value);
+
+                        // Для последней точки смещаем метку влево
+                        if (index === dataset.data.length - 1) {
+                            ctx.textAlign = 'right';
+                            ctx.fillText(formattedValue + ' млрд', position.x - 5, position.y - 10);
+                        } else {
+                            // Для остальных точек обычное размещение
+                            ctx.fillText(formattedValue + ' млрд', position.x, position.y - 10);
+                        }
+                    });
+                }
+            });
+        }
+    }]
+});
+
+            // График: Доля депозитного портфеля
+const depositShareCtx = document.getElementById('depositShareChart').getContext('2d');
+
+// Создаем градиент для столбцов
+const gradient = depositShareCtx.createLinearGradient(0, 400, 0, 0);
+gradient.addColorStop(0, '#708090');  // Используем значение из ваших CSS переменных
+gradient.addColorStop(1, '#D3D3D3');  // Используем значение из ваших CSS переменных
+
+const depositShareChart = new Chart(depositShareCtx, {
+    type: 'bar',
+    data: {
+        labels: ['2020', '2021', '2022', '2023', '2024'],
+        datasets: [{
+            label: 'Доля на рынке (%)',
+            data: [4.8, 5.3, 4.0, 4.5, 5.8],
+            backgroundColor: gradient,
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false,
+                backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                bodyFont: {
+                    size: 14
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `Доля на рынке: ${context.raw}%`;
+                    }
+                }
+            },
+            // Добавляем конфигурацию datalabels для отображения значений
+            datalabels: {
+                display: true,
+                color: '#FFFFFF',
+                backgroundColor: 'rgb(112,128,144)',
+                borderRadius: 4,
+                padding: {
+                    top: 4,
+                    bottom: 4,
+                    left: 6,
+                    right: 6
+                },
+                font: {
+                    weight: 'bold',
+                    size: 20
+                },
+                formatter: function(value) {
+                    return value + '%';
+                },
+                anchor: 'end',
+                align: 'top',
+                offset: 0
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 8,
+                ticks: {
+                    callback: function(value) {
+                        return value + '%';
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels] // Регистрируем плагин datalabels
+});
+
+           // График: Международное финансирование
+            const internationalFinancingCtx = document.getElementById('internationalFinancingChart').getContext('2d');
+            const internationalFinancingChart = new Chart(internationalFinancingCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Доллары США (551,5 млн)', 'Евро (209 млн)', 'Юан (200 млн)'],
+                    datasets: [{
+                        data: [551.5, 209, 200],
+                        backgroundColor: ['#708090', '#d3d3d3', '#3f4041'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'rectRounded'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 54, 116, 0.9)',
+                            bodyFont: {
+                                size: 14
+                            }
+                        },
+                        // Добавляем конфигурацию datalabels
+                        datalabels: {
+                            color: '#FFFFFF',
+                            font: {
+                                weight: 'bold',
+                                size: 20
+                            },
+                            formatter: function(value, context) {
+                                const sum = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / sum) * 100);
+                                return percentage + '%';
+                            },
+                            anchor: 'center',
+                            align: 'center'
+                        }
+                    },
+                    cutout: '60%'
+                },
+                // Добавляем список плагинов
+                plugins: [ChartDataLabels]
+            });
+        });
+    </script>
+</body>
+</html>
